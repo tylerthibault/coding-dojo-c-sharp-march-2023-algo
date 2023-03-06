@@ -47,7 +47,9 @@ class ListNode {
      * - Space: O(?).
      * @returns {boolean}
      */
-    isEmpty() {}
+    isEmpty() {
+        return this.head === null ? false : true
+    }
   
     /**
      * Creates a new node with the given data and inserts it at the back of
@@ -57,7 +59,20 @@ class ListNode {
      * @param {any} data The data to be added to the new node.
      * @returns {SinglyLinkedList} This list.
      */
-    insertAtBack(data) {}
+    insertAtBack(data) {
+      const newNode = new ListNode(data);
+      if (!this.isEmpty()) {
+        this.head = newNode;
+      } else {
+        let runner = this.head;
+        while (runner.next) {
+          runner = runner.next;
+        }
+        runner.next = newNode;
+      }
+      return this;
+    }
+    
   
     /**
      * Creates a new node with the given data and inserts it at the back of
@@ -101,7 +116,19 @@ class ListNode {
       }
       return arr;
     }
-  }
+
+      // Method to print the linked list and its nodes
+    printList() {
+      let current = this.head;
+      let list = '';
+      while (current) {
+        list += current.data + ' -> ';
+        current = current.next;
+      }
+      list += 'null';
+      console.log(list);
+    }
+}
   
   /******************************************************************* 
   Multiple test lists already constructed to test your methods on.
@@ -115,8 +142,9 @@ class ListNode {
   // const firstThreeList = new SinglyLinkedList().insertAtBackMany([1, 2, 3]);
   // const secondThreeList = new SinglyLinkedList().insertAtBackMany([4, 5, 6]);
   // const unorderedList = new SinglyLinkedList().insertAtBackMany([
-  //   -5, -10, 4, -3, 6, 1, -7, -2,
-  // ]);
+  //     -5, -10, 4, -3, 6, 1, -7, -2,
+  //   ]);
+    // console.log(unorderedList.printList())
   
   /* node 4 connects to node 1, back to head */
   // const perfectLoopList = new SinglyLinkedList().insertAtBackMany([1, 2, 3, 4]);
