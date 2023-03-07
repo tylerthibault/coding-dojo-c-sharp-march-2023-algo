@@ -41,6 +41,7 @@ class ListNode {
       this.head = null;
     }
   
+    // ********************* MONDAY *********************
     /**
      * Determines if this list is empty.
      * - Time: O(?).
@@ -48,7 +49,7 @@ class ListNode {
      * @returns {boolean}
      */
     isEmpty() {
-        return this.head === null ? false : true
+        return this.head === null ? true : false
     }
   
     /**
@@ -61,7 +62,7 @@ class ListNode {
      */
     insertAtBack(data) {
       const newNode = new ListNode(data);
-      if (!this.isEmpty()) {
+      if (this.isEmpty()) {
         this.head = newNode;
       } else {
         let runner = this.head;
@@ -99,6 +100,36 @@ class ListNode {
       }
       return this;
     }
+    // ********************* END MONDAY *********************
+    // ********************* TUESDAY *********************
+    /**
+     * Creates a new node with the given data and inserts that node at the front
+     * of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @param {any} data The data for the new node.
+     * @returns {SinglyLinkedList} This list.
+     */
+    insertAtFront(data) {}
+
+    /**
+     * Removes the first node of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {any} The data from the removed node.
+     */
+    removeHead() {}
+
+    // EXTRA
+    /**
+     * Calculates the average of this list.
+     * - Time: (?).
+     * - Space: (?).
+     * @returns {number|NaN} The average of the node's data.
+     */
+    average() {}
+
+    // ********************* END TUESDAY *********************
   
     /**
      * Converts this list into an array containing the data of each node.
@@ -117,7 +148,7 @@ class ListNode {
       return arr;
     }
 
-      // Method to print the linked list and its nodes
+    // Method to print the linked list and its nodes
     printList() {
       let current = this.head;
       let list = '';
@@ -144,7 +175,7 @@ class ListNode {
   // const unorderedList = new SinglyLinkedList().insertAtBackMany([
   //     -5, -10, 4, -3, 6, 1, -7, -2,
   //   ]);
-    // console.log(unorderedList.printList())
+  //   console.log(unorderedList.printList())
   
   /* node 4 connects to node 1, back to head */
   // const perfectLoopList = new SinglyLinkedList().insertAtBackMany([1, 2, 3, 4]);
