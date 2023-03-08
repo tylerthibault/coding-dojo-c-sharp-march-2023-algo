@@ -110,7 +110,12 @@ class ListNode {
      * @param {any} data The data for the new node.
      * @returns {SinglyLinkedList} This list.
      */
-    insertAtFront(data) {}
+    insertAtFront(data) {
+      const newHead = new ListNode(data)
+      newHead.next = this.head
+      this.head = newHead
+      return this
+    }
 
     /**
      * Removes the first node of this list.
@@ -118,7 +123,13 @@ class ListNode {
      * - Space: (?).
      * @returns {any} The data from the removed node.
      */
-    removeHead() {}
+    removeHead() {
+      if (this.isEmpty()) return null
+
+      const oldhead = this.head
+      this.head = oldhead.next
+      return oldhead.data
+    }
 
     // EXTRA
     /**
@@ -127,9 +138,56 @@ class ListNode {
      * - Space: (?).
      * @returns {number|NaN} The average of the node's data.
      */
-    average() {}
+    average() {
+      let runner = this.head
+      let sum = 0
+      let count = 0
+
+      while (runner) {
+        count++
+        sum += runner.data
+        runner = runner.next
+      }
+      /**
+      * Dividing by 0 will give you NaN (Not a Number), so an empty list will return NaN in this case,
+      * it may make sense to allow NaN to be returned, because the average of an empty list doesn't make sense 
+      * and it could be misleading to return 0 since 0 is the average of any list with a sum of 0
+      * due to negatives or all zeros.
+      */
+      return sum / count
+    }
 
     // ********************* END TUESDAY *********************
+    // ********************* WEDNESDAY *********************
+    /**
+     * Removes the last node of this list.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {any} The data from the node that was removed.
+    */
+    removeBack() {}
+    
+    /**
+      * Determines whether or not the given search value exists in this list.
+      * - Time: O(?).
+      * - Space: O(?).
+      * @param {any} val The data to search for in the nodes of this list.
+      * @returns {boolean}
+    */
+    contains(val) {}
+    
+    /**
+     * Determines whether or not the given search value exists in this list.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {any} val The data to search for in the nodes of this list.
+     * @param {?ListNode} current The current node during the traversal of this list
+     *    or null when the end of the list has been reached.
+     * @returns {boolean}
+    */
+    containsRecursive(val, current = this.head) {}
+ 
+ // ********************* END WEDNESDAY *********************
   
     /**
      * Converts this list into an array containing the data of each node.
