@@ -166,6 +166,7 @@ class ListNode {
      * @returns {any} The data from the node that was removed.
     */
     removeBack() {}
+
     
     /**
       * Determines whether or not the given search value exists in this list.
@@ -186,7 +187,20 @@ class ListNode {
      * @returns {boolean}
     */
     containsRecursive(val, current = this.head) {}
- 
+
+    // EXTRA
+    /**
+     * Recursively finds the maximum integer data of the nodes in this list.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @param {ListNode} runner The start or current node during traversal, or null
+     *    when the end of the list is reached.
+     * @param {ListNode} maxNode Keeps track of the node that contains the current
+     *    max integer as it's data.
+     * @returns {?number} The max int or null if none.
+     */
+    recursiveMax(runner = this.head, maxNode = this.head) {}
+
  // ********************* END WEDNESDAY *********************
   
     /**
