@@ -230,6 +230,7 @@ class ListNode {
       }
       list += 'null';
       console.log(list);
+      return this
     }
 }
   
@@ -244,10 +245,10 @@ class ListNode {
   // const biNodeList = new SinglyLinkedList().insertAtBackMany([1, 2]);
   // const firstThreeList = new SinglyLinkedList().insertAtBackMany([1, 2, 3]);
   // const secondThreeList = new SinglyLinkedList().insertAtBackMany([4, 5, 6]);
-  // const unorderedList = new SinglyLinkedList().insertAtBackMany([
-  //     -5, -10, 4, -3, 6, 1, -7, -2,
-  //   ]);
-  //   console.log(unorderedList.printList())
+  const unorderedList = new SinglyLinkedList().insertAtBackMany([
+      -5, -10, 4, -3, 6, 1, -7, -2,
+    ]);
+  unorderedList.printList()
   
   /* node 4 connects to node 1, back to head */
   // const perfectLoopList = new SinglyLinkedList().insertAtBackMany([1, 2, 3, 4]);
