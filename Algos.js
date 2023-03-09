@@ -241,7 +241,19 @@ class ListNode {
  * @returns {any} The data of the second to last node or null if there is no
  *    second to last node.
  */
-secondToLast() {}
+secondToLast() {
+    if (!this.head || !this.head.next) {
+      return null;
+  }
+
+  // There are at least 2 nodes since the above return hasn't happened.
+  let runner = this.head;
+
+  while (runner.next.next) {
+      runner = runner.next;
+  }
+  return runner.data;
+  }
 
 /**
  * Removes the node that has the matching given val as it's data.
@@ -251,7 +263,24 @@ secondToLast() {}
  *    node to be removed.
  * @returns {boolean} Indicates if a node was removed or not.
  */
-removeVal(val) {}
+removeVal(val) {
+  if(this.isEmpty()) return false;
+    let runner = this.head;
+    if(runner.data === val){
+        this.removeHead();
+        return true;
+    }
+    let follower = null;
+    while (runner) {
+        if (runner.data === val) {
+            follower.next = runner.next;
+            return true;
+        }
+        follower = runner;
+        runner = runner.next;
+    }
+    return false;
+}
 
 // EXTRA
 /**
@@ -263,7 +292,26 @@ removeVal(val) {}
  *    should be inserted in front of.
  * @returns {boolean} To indicate whether the node was pre-pended or not.
  */
-prepend(newVal, targetVal) {}
+prepend(newVal, targetVal) {
+  if(this.isEmpty()) return false;
+    let runner = this.head;
+    if(runner.data === targetVal){
+        this.insertAtFront(newVal);
+        return true;
+    }
+    const newNode = new ListNode(newVal);
+    let follower = null;
+    while (runner) {
+        if (runner.data === targetVal) {
+            follower.next = newNode;
+            newNode.next = runner;
+            return true;
+        }
+        follower = runner;
+        runner = runner.next;
+    }
+    return false;
+}
 
  // ********************* END THURSDAY *********************
  /**
