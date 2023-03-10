@@ -235,51 +235,51 @@ class ListNode {
  // ********************* END WEDNESDAY *********************
  // ********************* THURSDAY *********************
  /**
- * Retrieves the data of the second to last node in this list.
- * - Time: O(?).
- * - Space: O(?).
- * @returns {any} The data of the second to last node or null if there is no
- *    second to last node.
+  * Retrieves the data of the second to last node in this list.
+  * - Time: O(?).
+  * - Space: O(?).
+  * @returns {any} The data of the second to last node or null if there is no
+  *    second to last node.
  */
 secondToLast() {
     if (!this.head || !this.head.next) {
       return null;
-  }
-
-  // There are at least 2 nodes since the above return hasn't happened.
-  let runner = this.head;
-
-  while (runner.next.next) {
+    }
+    
+    // There are at least 2 nodes since the above return hasn't happened.
+    let runner = this.head;
+    
+    while (runner.next.next) {
       runner = runner.next;
-  }
-  return runner.data;
+    }
+    return runner.data;
   }
 
-/**
- * Removes the node that has the matching given val as it's data.
- * - Time: O(?).
- * - Space: O(?).
- * @param {any} val The value to compare to the node's data to find the
+  /**
+   * Removes the node that has the matching given val as it's data.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {any} val The value to compare to the node's data to find the
  *    node to be removed.
  * @returns {boolean} Indicates if a node was removed or not.
- */
-removeVal(val) {
+  */
+ removeVal(val) {
   if(this.isEmpty()) return false;
-    let runner = this.head;
-    if(runner.data === val){
-        this.removeHead();
-        return true;
+  let runner = this.head;
+  if(runner.data === val){
+    this.removeHead();
+    return true;
+  }
+  let follower = null;
+  while (runner) {
+    if (runner.data === val) {
+      follower.next = runner.next;
+      return true;
     }
-    let follower = null;
-    while (runner) {
-        if (runner.data === val) {
-            follower.next = runner.next;
-            return true;
-        }
-        follower = runner;
-        runner = runner.next;
-    }
-    return false;
+    follower = runner;
+    runner = runner.next;
+  }
+  return false;
 }
 
 // EXTRA
@@ -291,35 +291,71 @@ removeVal(val) {
  * @param {any} targetVal The value to use to find the node that the newVal
  *    should be inserted in front of.
  * @returns {boolean} To indicate whether the node was pre-pended or not.
- */
+*/
 prepend(newVal, targetVal) {
   if(this.isEmpty()) return false;
-    let runner = this.head;
-    if(runner.data === targetVal){
-        this.insertAtFront(newVal);
-        return true;
+  let runner = this.head;
+  if(runner.data === targetVal){
+    this.insertAtFront(newVal);
+    return true;
+  }
+  const newNode = new ListNode(newVal);
+  let follower = null;
+  while (runner) {
+    if (runner.data === targetVal) {
+      follower.next = newNode;
+      newNode.next = runner;
+      return true;
     }
-    const newNode = new ListNode(newVal);
-    let follower = null;
-    while (runner) {
-        if (runner.data === targetVal) {
-            follower.next = newNode;
-            newNode.next = runner;
-            return true;
-        }
-        follower = runner;
-        runner = runner.next;
-    }
-    return false;
+    follower = runner;
+    runner = runner.next;
+  }
+  return false;
 }
 
- // ********************* END THURSDAY *********************
- /**
-  * Converts this list into an array containing the data of each node.
-  * - Time: O(n) linear.
-  * - Space: O(n).
-  * @returns {Array<any>} An array of each node's data.
+// ********************* END THURSDAY *********************
+// ********************* FRIDAY *********************
+/**
+ * Concatenates the nodes of a given list onto the back of this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {SinglyLinkedList} addList An instance of a different list whose
+ *    whose nodes will be added to the back of this list.
+ * @returns {SinglyLinkedList} This list with the added nodes.
  */
+concat(addList) {}
+
+/**
+ * Finds the node with the smallest data and moves that node to the front of
+ * this list.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @returns {SinglyLinkedList} This list.
+ */
+moveMinToFront() {}
+
+// EXTRA
+/**
+ * Splits this list into two lists where the 2nd list starts with the node
+ * that has the given value.
+ * splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3)
+ * and the return value will be a new list containing (5=>2=>4)
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} val The value in the node that the list should be split on.
+ * @returns {SinglyLinkedList} The split list containing the nodes that are
+ *    no longer in this list.
+ */
+splitOnVal(val) {}
+
+// ********************* END FRIDAY *********************
+
+/**
+ * Converts this list into an array containing the data of each node.
+ * - Time: O(n) linear.
+ * - Space: O(n).
+ * @returns {Array<any>} An array of each node's data.
+*/
 toArr() {
       const arr = [];
       let runner = this.head;
