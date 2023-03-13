@@ -323,7 +323,20 @@ prepend(newVal, targetVal) {
  *    whose nodes will be added to the back of this list.
  * @returns {SinglyLinkedList} This list with the added nodes.
  */
-concat(addList) {}
+concat(addList) {
+    //find the end of the first list where .next ===null
+  //make the head of the second list now that .next
+  //edge cases: if one of the lists is empty
+  if (this.isEmpty()){
+    return addList 
+  }
+  let runner = this.head
+  while (runner.next){
+    runner= runner.next
+  }
+  runner.next = addList.head
+  return this
+}
 
 /**
  * Finds the node with the smallest data and moves that node to the front of
@@ -332,7 +345,37 @@ concat(addList) {}
  * - Space: O(?).
  * @returns {SinglyLinkedList} This list.
  */
-moveMinToFront() {}
+moveMinToFront() {
+  if(this.isEmpty()) return this;
+  let runner = this.head;
+  let minVal = runner.data;
+  while(runner){
+    if(runner.data < minVal) minVal = runner.data;
+    runner = runner.next;
+  }
+  this.removeVal(minVal);
+  this.insertAtFront(minVal);
+  return this;
+}
+moveMinToFrontIdeas() {
+  if(this.isEmpty()) return this;
+  let runner = this.head;
+  let minValNode = runner;
+  let follower = null;
+  let minValFollower = null;
+  while(runner){
+    if(runner.data < minValNode.data) {
+      minValNode = runner;
+      minValFollower = follower;
+    }
+    follower = runner;
+    runner = runner.next;
+  }
+  minValFollower.next = minValNode.next;
+
+  this.insertAtFront(minValNode.data);
+  return this;
+}
 
 // EXTRA
 /**
@@ -346,7 +389,22 @@ moveMinToFront() {}
  * @returns {SinglyLinkedList} The split list containing the nodes that are
  *    no longer in this list.
  */
-splitOnVal(val) {}
+splitOnVal(val) {
+  if(this.isEmpty()) return this;
+  let runner = this.head;
+  let follower = null;
+  while(runner){
+    if(runner.data ===val){
+      follower.next = null;
+      const newList = new SinglyLinkedList();
+      newList.head= runner;
+      return newList;
+    }
+    follower = runner;
+    runner = runner.next;
+  }
+  return this;
+}
 
 // ********************* END FRIDAY *********************
 
