@@ -45,7 +45,9 @@ class BinarySearchTree {
    * - Space: O(?).
    * @returns {boolean} Indicates if this tree is empty.
   */
-  isEmpty() { }
+  isEmpty() {
+    return this.root === null;
+  }
 
   /**
    * Retrieves the smallest integer data from this tree.
@@ -55,7 +57,16 @@ class BinarySearchTree {
    *    the tree is being traversed.
    * @returns {number} The smallest integer from this tree.
    */
-  min(current = this.root) { }
+  min(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    while (current.left) {
+      current = current.left;
+    }
+    return current.data;
+  }
 
   /**
    * Retrieves the smallest integer data from this tree.
@@ -65,7 +76,16 @@ class BinarySearchTree {
    *    the tree is being traversed.
    * @returns {number} The smallest integer from this tree.
   */
-  minRecursive(current = this.root) { }
+  minRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.left === null) {
+      return current.data;
+    }
+    return this.minRecursive(current.left);
+  }
 
   /**
    * Retrieves the largest integer data from this tree.
@@ -75,7 +95,16 @@ class BinarySearchTree {
    *    the tree is being traversed.
    * @returns {number} The largest integer from this tree.
   */
-  max(current = this.root) { }
+  max(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    while (current.right) {
+      current = current.right;
+    }
+    return current.data;
+  }
 
   /**
    * Retrieves the largest integer data from this tree.
@@ -85,7 +114,16 @@ class BinarySearchTree {
    *    the tree is being traversed.
    * @returns {number} The largest integer from this tree.
   */
-  maxRecursive(current = this.root) { }
+  maxRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.right === null) {
+      return current.data;
+    }
+    return this.maxRecursive(current.right);
+  }
 
   // ************************ END MONDAY ************************
 
