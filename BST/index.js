@@ -134,7 +134,16 @@ class BinarySearchTree {
  * @param {number} searchVal The number to search for in the node's data.
  * @returns {boolean} Indicates if the searchVal was found.
  */
-  contains(searchVal) { }
+  contains(searchVal) {
+    let current = this.root
+    while (current) {
+      if (current.data === searchVal) return true
+      current.data < searchVal
+        ? current = current.right
+        : current = current.left
+    }
+    return false
+  }
 
   /**
    * Determines if this tree contains the given searchVal.
@@ -143,7 +152,15 @@ class BinarySearchTree {
    * @param {number} searchVal The number to search for in the node's data.
    * @returns {boolean} Indicates if the searchVal was found.
    */
-  containsRecursive(searchVal, current = this.root) { }
+  containsRecursive(searchVal, current = this.root) {
+    if (!current) return false
+    if (current.data === searchVal) return true
+    if (current.data > searchVal) {
+      return this.containsRecursive(searchVal, current.left)
+    } else {
+      return this.containsRecursive(searchVal, current.right)
+    }
+  }
 
   /**
    * Calculates the range (max - min) from the given startNode.
@@ -153,9 +170,40 @@ class BinarySearchTree {
    * @returns {number|null} The range of this tree or a sub tree depending on if the
    *    startNode is the root or not.
    */
-  range(startNode = this.root) { }
+  range(startNode = this.root) {
+    if (startNode === null) return null
+    const max = this.maxRecursive(startNode)
+    const min = this.minRecursive(startNode)
+    return max - min
+  }
 
   // ************************ END TUSDAY ************************
+  // ************************ WEDNESDAY ************************
+
+  /**
+ * Inserts a new node with the given newVal in the right place to preserver
+ * the order of this tree.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {number} newVal The data to be added to a new node.
+ * @returns {BinarySearchTree} This tree.
+ */
+  insert(newVal) { }
+
+  /**
+   * Inserts a new node with the given newVal in the right place to preserver
+   * the order of this tree.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {number} newVal The data to be added to a new node.
+   * @param {Node} curr The node that is currently accessed from the tree as
+   *    the tree is being traversed.
+   * @returns {BinarySearchTree} This tree.
+   */
+  insertRecursive(newVal, curr = this.root) { }
+
+
+  // ************************ END WEDNESDAY ************************
 
   // Logs this tree horizontally with the root on the left.
   print(node = this.root, spaceCnt = 0, spaceIncr = 10) {
