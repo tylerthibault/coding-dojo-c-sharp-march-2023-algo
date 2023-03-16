@@ -282,7 +282,6 @@ class BinarySearchTree {
    * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
    */
   toArrInorder(node = this.root, vals = []) {
-    toArrInorder(node = this.root, vals = []) {
       if (node) {
         this.toArrInorder(node.left, vals)
         vals.push(node.data)
@@ -290,7 +289,6 @@ class BinarySearchTree {
       }
       return vals
     }
-  }
 
   /**
    * DFS Postorder (Left, Right, CurrNode)
