@@ -262,7 +262,14 @@ class BinarySearchTree {
    * @param {Array<number>} vals The data that has been visited so far.
    * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
    */
-  toArrPreorder(node = this.root, vals = []) { }
+  toArrPreorder(node = this.root, vals = []) {
+    if (node) {
+      vals.push(node.data)
+      this.toArrPreorder(node.left, vals)
+      this.toArrPreorder(node.right, vals)
+    }
+    return vals
+  }
 
   /**
    * DFS Inorder: (Left, CurrNode, Right)
@@ -274,7 +281,16 @@ class BinarySearchTree {
    * @param {Array<number>} vals The data that has been visited so far.
    * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
    */
-  toArrInorder(node = this.root, vals = []) { }
+  toArrInorder(node = this.root, vals = []) {
+    toArrInorder(node = this.root, vals = []) {
+      if (node) {
+        this.toArrInorder(node.left, vals)
+        vals.push(node.data)
+        this.toArrInorder(node.right, vals)
+      }
+      return vals
+    }
+  }
 
   /**
    * DFS Postorder (Left, Right, CurrNode)
@@ -285,7 +301,14 @@ class BinarySearchTree {
    * @param {Array<number>} vals The data that has been visited so far.
    * @returns {Array<number>} The vals in DFS Preorder once all nodes visited.
    */
-  toArrPostorder(node = this.root, vals = []) { }
+  toArrPostorder(node = this.root, vals = []) {
+    if (node) {
+      this.toArrPostorder(node.left, vals)
+      this.toArrPostorder(node.right, vals)
+      vals.push(node.data)
+    }
+    return vals
+  }
 
   // ************************ END THURSDAY ************************
 
