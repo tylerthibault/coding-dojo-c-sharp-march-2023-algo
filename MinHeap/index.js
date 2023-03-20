@@ -9,22 +9,24 @@
  */
 class MinHeap {
     constructor() {
-      /**
-       * 0th index not used, so null is a placeholder. Not using 0th index makes
-       * calculating the left and right children's index cleaner.
-       * This also effectively makes our array start at index 1.
-       */
-      this.heap = [null];
+        /**
+         * 0th index not used, so null is a placeholder. Not using 0th index makes
+         * calculating the left and right children's index cleaner.
+         * This also effectively makes our array start at index 1.
+         */
+        this.heap = [null];
     }
-  
+
     /**
      * Retrieves the top (minimum number) in the heap without removing it.
      * - Time: O(1) constant.
      * - Space: O(1) constant.
      * @returns {?number} Null if empty.
      */
-    top() {}
-  
+    top() {
+        return this.heap.length > 1 ? this.heap[1] : null;
+    }
+
     /**
      * Inserts a new number into the heap and maintains the heaps order.
      * 1. Push new num to back then.
@@ -34,25 +36,42 @@ class MinHeap {
      * - Space: O(1) constant.
      * @param {number} num The num to add.
      */
-    insert(num) {}
-  
+    insert(num) {
+        this.heap.push(num)
+
+        let current = this.heap.length - 1
+
+        while (current > 1 && this.heap[Math.floor(current/2)] > this.heap[current]) {
+            [this.heap[Math.floor(current/2)], this.heap[current]] = [this.heap[current], this.heap[Math.floor(current/2)]]
+            current = [Math.floor(current/2)]
+        }
+        return this
+    }
+    }
+
     /**
      * Logs the tree horizontally with the root on the left and the index in
      * parenthesis using reverse inorder traversal.
      */
     printHorizontalTree(parentIdx = 1, spaceCnt = 0, spaceIncr = 10) {
-      if (parentIdx > this.heap.length - 1) {
-        return;
-      }
-  
-      spaceCnt += spaceIncr;
-      this.printHorizontalTree(parentIdx * 2 + 1, spaceCnt);
-  
-      console.log(
-        " ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) +
-          `${this.heap[parentIdx]} (${parentIdx})`
-      );
-  
-      this.printHorizontalTree(parentIdx * 2, spaceCnt);
+        if (parentIdx > this.heap.length - 1) {
+            return;
+        }
+
+        spaceCnt += spaceIncr;
+        this.printHorizontalTree(parentIdx * 2 + 1, spaceCnt);
+
+        console.log(
+            " ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) +
+            `${this.heap[parentIdx]} (${parentIdx})`
+        );
+
+        this.printHorizontalTree(parentIdx * 2, spaceCnt);
     }
-  }
+}
+
+let newHeap = new MinHeap()
+newHeap.insert(5)
+newHeap.insert(10)
+newHeap.insert(2)
+console.log(newHeap.top())
