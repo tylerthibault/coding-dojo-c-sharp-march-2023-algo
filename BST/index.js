@@ -319,7 +319,43 @@ class BinarySearchTree {
  * @param {Node} current The current node during the traversal of this tree.
  * @returns {Array<number>} The data of all nodes in BFS order.
  */
-  toArrLevelorder(current = this.root) { }
+  toArrLevelorder(current = this.root) {
+    /**
+     * To turn the tree into a list, we start at the top (the root) and write 
+     * down its number. Then we look at its left child and its right child. 
+     * If they exist, we write down their numbers too, and then we look at their 
+     * left and right children. We keep doing this until we've written down all 
+     * the numbers in the tree. 
+     * 
+     * This code does this process using a queue. A queue is like a line of people 
+     * waiting for something. We start by adding the root to the queue. Then we take 
+     * the first person out of the queue and write down their number. We add their 
+     * left and right children to the end of the queue, if they exist. Then we 
+     * take the next person out of the queue and repeat the process. We keep doing 
+     * this until the queue is empty and we've written down all the numbers.
+     */
+    const queue = [];
+    const vals = [];
+
+    if (current) {
+      queue.push(current);
+    }
+
+    // other tree structures have more than a left and a right, so children could be looped over and enqueued
+    while (queue.length > 0) {
+      const dequeuedNode = queue.shift();
+      vals.push(dequeuedNode.data);
+
+      if (dequeuedNode.left) {
+        queue.push(dequeuedNode.left);
+      }
+
+      if (dequeuedNode.right) {
+        queue.push(dequeuedNode.right);
+      }
+    }
+    return vals;
+  }
 
   /**
    * Recursively counts the total number of nodes in this tree.

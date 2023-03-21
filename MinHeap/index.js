@@ -16,13 +16,13 @@ class MinHeap {
          */
         this.heap = [null];
     }
-
+    // ****************** MONDAY ******************
     /**
      * Retrieves the top (minimum number) in the heap without removing it.
      * - Time: O(1) constant.
      * - Space: O(1) constant.
      * @returns {?number} Null if empty.
-     */
+    */
     top() {
         return this.heap.length > 1 ? this.heap[1] : null;
     }
@@ -35,40 +35,57 @@ class MinHeap {
      * - Time: O(log n) logarithmic due to shiftUp / iterative swapping.
      * - Space: O(1) constant.
      * @param {number} num The num to add.
-     */
+    */
     insert(num) {
         this.heap.push(num)
 
         let current = this.heap.length - 1
 
-        while (current > 1 && this.heap[Math.floor(current/2)] > this.heap[current]) {
-            [this.heap[Math.floor(current/2)], this.heap[current]] = [this.heap[current], this.heap[Math.floor(current/2)]]
-            current = [Math.floor(current/2)]
+        while (current > 1 && this.heap[Math.floor(current / 2)] > this.heap[current]) {
+            [this.heap[Math.floor(current / 2)], this.heap[current]] = [this.heap[current], this.heap[Math.floor(current / 2)]]
+            current = [Math.floor(current / 2)]
         }
         return this
     }
-    }
+    // ****************** END MONDAY ******************
+    // ****************** TUESDAY ******************
 
     /**
-     * Logs the tree horizontally with the root on the left and the index in
-     * parenthesis using reverse inorder traversal.
+     * Extracts the min num from the heap and then re-orders the heap to
+     * maintain order so the next min is ready to be extracted.
+     * 1. Save the first node to a temp var.
+     * 2. Pop last node off and set idx1 equal to the popped value.
+     * 3. Iteratively swap the old last node that is now at idx1 with it's
+     *    smallest child IF the smallest child is smaller than it.
+     * - Time: O(log n) logarithmic due to shiftDown.
+     * - Space: O(1) constant.
+     * @returns {?number} The min number or null if empty.
      */
-    printHorizontalTree(parentIdx = 1, spaceCnt = 0, spaceIncr = 10) {
-        if (parentIdx > this.heap.length - 1) {
-            return;
-        }
-
-        spaceCnt += spaceIncr;
-        this.printHorizontalTree(parentIdx * 2 + 1, spaceCnt);
-
-        console.log(
-            " ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) +
-            `${this.heap[parentIdx]} (${parentIdx})`
-        );
-
-        this.printHorizontalTree(parentIdx * 2, spaceCnt);
-    }
+    extract() { }
+    
+    // ****************** END TUESDAY ******************
 }
+
+/**
+ * Logs the tree horizontally with the root on the left and the index in
+ * parenthesis using reverse inorder traversal.
+*/
+printHorizontalTree(parentIdx = 1, spaceCnt = 0, spaceIncr = 10) {
+    if (parentIdx > this.heap.length - 1) {
+        return;
+    }
+
+    spaceCnt += spaceIncr;
+    this.printHorizontalTree(parentIdx * 2 + 1, spaceCnt);
+
+    console.log(
+        " ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) +
+        `${this.heap[parentIdx]} (${parentIdx})`
+    );
+
+    this.printHorizontalTree(parentIdx * 2, spaceCnt);
+}
+    }
 
 let newHeap = new MinHeap()
 newHeap.insert(5)
