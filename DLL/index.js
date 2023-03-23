@@ -1,6 +1,10 @@
 /* 
-TODO: Create the DLLNode class and implement the DoublyLinkedList constructor
-and the empty methods below the constructor.
+  TODO: Create the DLLNode class and implement the DoublyLinkedList constructor
+  and the empty methods below the constructor.
+  Every node contains
+  - data
+  - next
+  - prv
 */
 
 /**
@@ -12,6 +16,9 @@ class DoublyLinkedList {
   /**
    * Executed when the new keyword is used to construct a new DoublyLInkedList
    * instance that inherits these methods and properties.
+   * List will have
+   * - head
+   * - tail
    */
   constructor() {
     // TODO: implement the constructor.
