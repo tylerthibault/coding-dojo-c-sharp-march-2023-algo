@@ -414,7 +414,30 @@ splitOnVal(val) {
  * - Space: (?).
  * @returns {SinglyLinkedList} This list.
  */
-reverse() {}
+reverse() {
+   /*
+      Each iteration we cut out current's next node to make it the new head
+      iteration-by-iteration example:
+      1234 -> initial list, 'current' is 1, next is 2.
+      2134 -> 'current' is still 1, next is 3.
+      3214
+      4321
+    */
+      if (!this.head || !this.head.next) {
+        return this;
+      }
+  
+      let current = this.head;
+  
+      while (current.next) {
+        const newHead = current.next;
+        // cut the newHead out from where it currently is
+        current.next = current.next.next;
+        newHead.next = this.head;
+        this.head = newHead;
+      }
+      return this;
+}
 
 /**
  * Determines whether the list has a loop in it which would result in
@@ -424,7 +447,31 @@ reverse() {}
  * - Space: (?).
  * @returns {boolean} Whether the list has a loop or not.
  */
-hasLoop() {}
+hasLoop() {
+   /**
+      APPROACH:
+      two runners are sent out and one runner goes faster so it will
+      eventually 'lap' the slower runner if there is a loop, 
+      at the moment faster runner laps slower runner, they are at the same
+      place, aka same instance of a node.
+    */
+      if (!this.head) {
+        return false;
+      }
+  
+      let fasterRunner = this.head;
+      let runner = this.head;
+  
+      while (fasterRunner && fasterRunner.next) {
+        runner = runner.next;
+        fasterRunner = fasterRunner.next.next;
+  
+        if (runner === fasterRunner) {
+          return true;
+        }
+      }
+      return false;
+}
 
 /**
  * Removes all the nodes that have a negative integer as their data.
@@ -432,7 +479,30 @@ hasLoop() {}
  * - Space: (?).
  * @returns {SinglyLinkedList} This list after the negatives are removed.
  */
-removeNegatives() {}
+removeNegatives() {
+  if (this.isEmpty()) {
+    return this;
+  }
+
+  let runner = this.head;
+
+  // get rid of all negatives at start so head will be positive, or null
+  while (runner && runner.data < 0) {
+    runner = runner.next;
+  }
+
+  this.head = runner;
+
+  //  head may have become null, that's why we check runner && runner.next
+  while (runner && runner.next) {
+    if (runner.next.data < 0) {
+      runner.next = runner.next.next;
+    } else {
+      runner = runner.next;
+    }
+  }
+  return this;
+}
 // ********************* END WEDNESDAY W3 *********************
 
 /**
