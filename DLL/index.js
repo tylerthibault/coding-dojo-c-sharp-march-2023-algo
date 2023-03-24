@@ -7,6 +7,14 @@
   - prv
 */
 
+class DLLNode {
+  constructor(data) {
+    this.data = data
+    this.next = null
+    this.prev = null
+  }
+}
+
 /**
  * A class to represent a doubly linked list and contain all of it's methods.
  * A doubly linked list is a singly linked list that can be traversed in both
@@ -22,6 +30,8 @@ class DoublyLinkedList {
    */
   constructor() {
     // TODO: implement the constructor.
+    this.head = null
+    this.tail = null
   }
 
   /**
@@ -31,7 +41,21 @@ class DoublyLinkedList {
    * @param {any} data The data for the new node.
    * @returns {DoublyLinkedList} This list.
    */
-  insertAtFront(data) { }
+  insertAtFront(data) {
+    const newHead = new DLLNode()
+
+    if (this.isEmpty()) {
+      this.head = newHead
+      this.tail = newHead
+    } else {
+      const oldHead = this.head
+      oldHead.prev = newHead
+      newHead.next = oldHead
+
+      this.head = newHead
+    }
+    return this
+  }
 
   /**
    * Creates a new node and adds it at the back of this list.
@@ -40,7 +64,20 @@ class DoublyLinkedList {
    * @param {any} data The data for the new node.
    * @returns {DoublyLinkedList} This list.
    */
-  insertAtBack(data) { }
+  insertAtBack(data) {
+    const newTail = new DLLNode()
+
+    if (this.isEmpty()) {
+      this.head = newTail
+      this.tail = newTail
+    } else {
+      this.tail.next = newTail
+      newTail.prev = this.tail
+
+      this.tail = newTail
+    }
+    return this
+  }
 
   /**
   * Adds all the given items to the back of this list.
@@ -59,7 +96,61 @@ class DoublyLinkedList {
    * - Space: O(?).
    * @returns {any} The data of the removed node.
    */
-  removeMiddleNode() { }
+  removeMiddleNode() {
+    // when there is only 1 node, it is the middle, remove it.
+    if (!this.isEmpty() && this.head === this.tail) {
+      const removedData = this.head.data;
+      this.head = null;
+      this.tail = null;
+      return removedData;
+    }
+
+    let forwardRunner = this.head;
+    let backwardsRunner = this.tail;
+
+    while (forwardRunner && backwardsRunner) {
+      if (forwardRunner === backwardsRunner) {
+        const midNode = forwardRunner;
+        midNode.prev.next = midNode.next;
+        midNode.next.prev = midNode.prev;
+        return midNode.data;
+      }
+
+      // runners passed each other without stopping on the same node, even length, we can exit early
+      if (forwardRunner.prev === backwardsRunner) {
+        return null;
+      }
+
+      forwardRunner = forwardRunner.next;
+      backwardsRunner = backwardsRunner.prev;
+    }
+    return null;
+  }
+
+  // ****************** FRIDAY ***********************
+  /**
+ * Inserts a new node with the given newVal after the node that has the
+ * given targetVal as it's data.
+ * - Time: O(?).
+ * - Space: O(?).
+ * @param {any} targetVal The node data to find.
+ * @param {any} newVal Data for the new node.
+ * @returns {boolean} Indicates if the new node was added.
+ */
+  insertAfter(targetVal, newVal) { }
+
+  /**
+   * Inserts a new node with the given newVal before the node that has the
+   * given targetVal as it's data.
+   * - Time: O(?).
+   * - Space: O(?).
+   * @param {any} targetVal The node data to find.
+   * @param {any} newVal Data for the new node.
+   * @returns {boolean} Indicates if the new node was added.
+   */
+  insertBefore(targetVal, newVal) { }
+
+  // ****************** END FRIDAY *******************
 
   /**
    * Determines if this list is empty.
