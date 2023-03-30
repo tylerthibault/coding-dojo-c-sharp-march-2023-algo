@@ -79,7 +79,28 @@ class Queue {
     * @returns {boolean} Whether all the items of the two queues are equal and
     *    in the same order.
     */
-    compareQueues(q2) { }
+    compareQueues(q2) {
+        if (this.size() !== q2.size()) {
+            return false;
+        }
+        let count = 0;
+        let isEqual = true;
+        const len = this.size();
+
+        while (count < len) {
+            const dequeued1 = this.dequeue();
+            const dequeued2 = q2.dequeue();
+
+            if (dequeued1 !== dequeued2) {
+                isEqual = false;
+            }
+
+            this.enqueue(dequeued1);
+            q2.enqueue(dequeued2);
+            count++;
+        }
+        return isEqual;
+    }
 
     /**
      * Determines if the queue is a palindrome (same items forward and backwards).
@@ -91,7 +112,43 @@ class Queue {
      * - Space: O(?).
      * @returns {boolean}
      */
-    isPalindrome() { }
+    isPalindrome() {
+        let isPalin = true;
+        const stack = new Stack(),
+            len = this.size();
+
+        for (let i = 0; i < len; i++) {
+            let dequeued = this.dequeue();
+            stack.push(dequeued);
+            // add it back so the queue items and order is restored at the end
+            this.enqueue(dequeued);
+        }
+
+        for (let i = 0; i < len; i++) {
+            let dequeued = this.dequeue();
+            let popped = stack.pop();
+
+            if (popped !== dequeued) {
+                isPalin = false;
+            }
+
+            // add it back so the queue items and order is restored at the end
+            this.enqueue(dequeued);
+        }
+        return isPalin;
+    }
+
+    /**
+     * Determines whether the sum of the left half of the queue items is equal to
+     * the sum of the right half. Avoid indexing the queue items directly via
+     * bracket notation, use the queue methods instead for practice.
+     * Use no extra array or objects.
+     * The queue should be returned to it's original order when done.
+     * - Time: O(?).
+     * - Space: O(?).
+     * @returns {boolean} Whether the sum of the left and right halves is equal.
+     */
+    isSumOfHalvesEqual() { }
 }
 
 /* Rebuild the above class using a linked list instead of an array. */
